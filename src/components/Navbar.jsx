@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
-import { requestBook } from '../utils/api';  // Asegúrate de importar correctamente requestBook
-
 import './Navbar.css';
 
-const Navbar = ({ isLoggedIn, onLogout }) => {
+const Navbar = () => {
   const { cart, removeFromCart, clearCart } = useCart();
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [selectedDeliveryTime, setSelectedDeliveryTime] = useState('5 días');
+  const [user, setUser] = useState(null); // Estado para manejar el usuario
   const navigate = useNavigate();
+
+  // Verificar el usuario al cargar el componente
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(storedUser);
+  }, []);
 
   const handleRemoveItem = (bookId) => {
     removeFromCart(bookId);
@@ -26,14 +31,11 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
   };
 
   const handleCheckout = async () => {
-    // Check if cart is empty
     if (cart.length === 0) {
       alert('El carrito está vacío. No se puede finalizar la orden.');
       return;
     }
 
-    // Check authentication
-    const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
 
     if (!user || !token) {
@@ -42,34 +44,14 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
       return;
     }
 
-    try {
-      // Process book requests for each item in the cart
-      const requestPromises = cart.map(async (item) => {
-        const notes = ""; // Keep original empty notes approach
-        await requestBook(item._id, selectedDeliveryTime, notes);
-      });
-
-      // Wait for all book requests to complete
-      await Promise.all(requestPromises);
-
-      // Clear the cart after successful requests
-      clearCart();
-
-      // Show success message
-      alert('¡Gracias por tu compra! Tus órdenes han sido procesadas.');
-
-      // Navigate to profile or home page
-      navigate('/profile');
-
-    } catch (error) {
-      console.error("Error al realizar la compra:", error);
-      alert("Hubo un problema al realizar la compra. Intenta nuevamente.");
-    }
+    // Simulación de procesamiento
+    clearCart();
+    alert('¡Gracias por tu compra!');
+    navigate('/profile');
   };
 
   const handleProfileClick = () => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.isAdmin) {
+    if (user?.isAdmin) {
       navigate('/profile/admin');
     } else {
       navigate('/profile');
@@ -88,7 +70,7 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
     <header className="navbar">
       <div className="navbar-left">
         <button onClick={handleGoHome}>Inicio</button>
-        {isLoggedIn ? (
+        {user ? (
           <button onClick={handleProfileClick}>Perfil</button>
         ) : (
           <button onClick={() => navigate('/login')}>Iniciar Sesión</button>
@@ -117,7 +99,6 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                 <div className="total">
                   <strong>Total: ${calculateTotal()}</strong>
                 </div>
-
                 <div className="delivery-time">
                   <label htmlFor="delivery-time">Selecciona tiempo de entrega:</label>
                   <select
@@ -131,7 +112,6 @@ const Navbar = ({ isLoggedIn, onLogout }) => {
                     <option value="10 días">10 días</option>
                   </select>
                 </div>
-
                 <button className="checkout-button" onClick={handleCheckout}>
                   Finalizar Orden
                 </button>
