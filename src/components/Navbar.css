@@ -1,0 +1,167 @@
+/* Estilos generales del Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #4F3737; /* Marrón */
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative; /* Necesario para que el dropdown se posicione relativo al navbar */
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-center {
+  font-size: 1.5rem;
+  color: #C5A18C; /* Beige oscuro */
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Botones del Navbar */
+button {
+  background-color: transparent;
+  border: none;
+  color: #000000; /* Negro */
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+button:hover {
+  color: #C5A18C; /* Beige oscuro */
+}
+
+/* Botón del carrito */
+.cart-button {
+  background: none;
+  border: none;
+  color: #C5A18C; /* Beige oscuro */
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative; /* Esto hace que el carrito se posicione dentro del navbar */
+}
+
+.cart-button:hover {
+  color: #C5A18C; /* Beige oscuro */
+}
+
+.cart-count {
+  background-color: #4F3737; /* Marrón */
+  color: #F5E9DA; /* Beige */
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -5px;
+  right: -10px;
+}
+
+/* Dropdown del carrito con animación de arriba hacia abajo */
+.cart-dropdown {
+  position: absolute;
+  top: 100%; /* Justo debajo del ícono */
+  right: 0;
+  background-color: #836F6F; /* Marrón claro */
+  border: 1px solid #C5A18C; /* Beige oscuro */
+  z-index: 1000; /* Asegura que el carrito esté por encima de otros elementos */
+  width: 300px;
+  max-height: 0; /* Inicialmente oculto */
+  overflow-y: auto;
+  transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+  padding: 0; /* Inicialmente sin padding */
+  transform: translateY(-20px); /* Desplazamiento hacia arriba para la animación */
+  opacity: 0; /* Inicialmente invisible */
+}
+
+.cart-dropdown.visible {
+  max-height: 500px; /* Altura visible */
+  padding: 20px;
+  transform: translateY(0); /* El carrito se despliega hacia abajo */
+  opacity: 1; /* Se hace visible */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #C5A18C; /* Beige oscuro */
+}
+
+.cart-image {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.cart-details {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4F3737; /* Marrón */
+  text-align: right;
+}
+
+/* Botón de finalizar orden */
+.checkout-button {
+  background-color: #4F3737; /* Marrón */
+  color: #F5E9DA; /* Beige */
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.checkout-button:hover {
+  background-color: #C5A18C; /* Beige oscuro */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-left,
+  .navbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .navbar-center {
+    margin: 10px 0;
+  }
+
+  .cart-dropdown {
+    width: 90%;
+    left: 5%; /* Centrado en pantallas pequeñas */
+  }
+}

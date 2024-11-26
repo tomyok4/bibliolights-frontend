@@ -1,0 +1,203 @@
+/* Contenedor principal */
+.container {
+  padding: 20px;
+  background-color: #f5e9da;
+  font-family: Arial, sans-serif;
+}
+
+/* Contenedor del encabezado */
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Título principal */
+.header {
+  text-align: left;
+  font-size: 30px;
+  color: #4f3737;
+}
+
+/* Caja de la barra de búsqueda */
+.searchBox {
+  background-color: #836f6f;
+  padding: 15px;
+  border-radius: 5px;
+  width: 300px;
+}
+
+/* Barra de búsqueda */
+.searchBar {
+  padding: 12px;
+  width: 100%;
+  background-color: #f5e9da;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Contenedor de ordenación */
+.sortingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+/* Etiqueta de ordenación */
+.sortLabel {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #4f3737;
+}
+
+/* Selector de ordenación */
+.sortSelect {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #c5a18c;
+}
+
+/* Grid de libros */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-content: center;
+}
+
+/* Tarjetas de libros */
+.card {
+  background-color: #836f6f;
+  padding: 20px;
+  border: 1px solid #c5a18c;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 480px; /* Altura fija */
+  max-width: 300px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Imagen del libro */
+.image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+/* Contenedor de texto */
+.cardTextContainer {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* Título del libro */
+.cardTitle {
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 50px; /* Limitar altura del título */
+}
+
+/* Texto dentro de la tarjeta */
+.cardText {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botón "Más detalles" */
+.detailsButton {
+  background-color: #4f3737;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: calc(100% - 40px);
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+/* Contenedor de la paginación */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 50px;
+}
+
+/* Botones de paginación */
+.paginationButton {
+  background-color: #836f6f;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Botón de paginación activo */
+.activePaginationButton {
+  background-color: #4f3737;
+}
+
+/* Mensaje de no resultados */
+.noResultsMessage {
+  grid-column: span 3;
+  text-align: center;
+  font-size: 18px;
+  color: #4f3737;
+  font-weight: bold;
+}
+
+/* Estilos responsivos */
+@media (max-width: 1200px) {
+  .grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+
+  .noResultsMessage {
+      grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+      grid-template-columns: 1fr;
+  }
+
+  .headerContainer {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  .searchBox {
+      width: 100%;
+      margin-top: 10px;
+  }
+
+  .noResultsMessage {
+      grid-column: span 1;
+  }
+}

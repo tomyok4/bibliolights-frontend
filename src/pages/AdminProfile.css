@@ -1,0 +1,243 @@
+/* Estilo general de la página de perfil del administrador */
+.admin-profile-container {
+  padding: 20px;
+  background-color: #F5E9DA; /* Fondo beige */
+  color: #4F3737; /* Color marrón oscuro */
+  font-family: "Roboto", sans-serif;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #C5A18C;
+  margin-bottom: 10px;
+}
+
+.profile-header h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #4F3737;
+}
+
+.profile-header button {
+  background-color: #4F3737;
+  color: #F5E9DA;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.profile-header button:hover {
+  background-color: #836F6F;
+}
+
+/* Estilo para las acciones del administrador */
+.admin-actions {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.admin-actions button {
+  background-color: #4F3737;
+  color: #F5E9DA;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.admin-actions button:hover {
+  background-color: #836F6F;
+}
+
+.admin-actions button:active {
+  background-color: #C5A18C;
+}
+
+/* Formulario de edición de libro */
+.edit-book-form, .add-book-form {
+  background-color: #4F3737;
+  color: #F5E9DA;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.edit-book-form input, .add-book-form input, .add-book-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #C5A18C;
+  background-color: #F5E9DA;
+  color: #4F3737;
+}
+
+.edit-book-form input:focus, .add-book-form input:focus {
+  border-color: #4F3737;
+  outline: none;
+}
+
+button {
+  background-color: #4F3737;
+  color: #FFF;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #836F6F;
+}
+
+button:active {
+  background-color: #C5A18C;
+}
+
+/* Estilo para la lista de libros */
+.admin-books ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.admin-books li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #C5A18C;
+}
+
+.admin-books button {
+  background-color: #D9534F;
+  color: #FFF;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.admin-books button:hover {
+  background-color: #C9302C;
+}
+
+/* Estilo para el botón "Agregar Libro" */
+.add-book-button {
+  background-color: #007bff; /* Azul */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%; /* Hacer que el botón ocupe todo el ancho */
+}
+
+.add-book-button:hover {
+  background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+.add-book-button:active {
+  background-color: #004085; /* Azul aún más oscuro cuando se hace clic */
+}
+
+.books-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.book-card {
+  background-color: #836f6f; /* Marrón */
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative; /* Necesario para los botones posicionados */
+}
+
+.book-image {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.book-details {
+  width: 100%;
+  color: #f5e9da; /* Texto beige */
+  text-align: center;
+}
+
+.book-details h4 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.book-details p {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #c5a18c;
+}
+
+.edit-button,
+.save-button,
+.delete-button {
+  background-color: #007bff; /* Azul para "Editar" y "Guardar" */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.edit-button:hover,
+.save-button:hover {
+  background-color: #0056b3; /* Azul oscuro */
+}
+
+.delete-button {
+  background-color: #d9534f; /* Rojo para "Eliminar" */
+}
+
+.delete-button:hover {
+  background-color: #c9302c;
+}
+
+/* Posicionamiento de los botones dentro de la tarjeta */
+.book-card .edit-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.book-card .delete-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
