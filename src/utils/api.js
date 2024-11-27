@@ -1,38 +1,18 @@
-// api.js
+import { GetAuthToken, GetIsAdmin } from "../context/authContext"; // Asegúrate de que el import esté al inicio
 
-const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzQzYTdkZWFhYzFlOTU1MzVmOWZjY2IiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MzI1Nzk3MzksImV4cCI6MTczMjY2NjEzOX0.fBSVGcb6N89vP-wOLf-cH-yE6Mjq7qPNODHUl36-AiM";
+const BASE_URL = "https://bibliolights-backend.onrender.com/api"; // URL actualizada
 
+// Encabezados comunes (sin token de autenticación)
 const headers = {
   "Content-Type": "application/json",
-  Authorization: `Bearer ${adminToken}`,
 };
 
-// Función para obtener los detalles de un libro
-export const fetchBookDetails = async (id) => {
-  try {
-    const res = await fetch(`https://bibliolights-backend-production.up.railway.app/api/books/${id}`, {
-      method: 'GET',
-      headers: headers,
-    });
-
-    if (!res.ok) {
-      throw new Error("Error al obtener los detalles del libro");
-    }
-
-    const bookData = await res.json();
-    return bookData;
-  } catch (error) {
-    console.error("Error:", error.message);
-    throw error;
-  }
-};
-
-// Función para obtener todos los libros
+// Función para obtener todos los libros sin autenticación
 export const fetchBooks = async () => {
   try {
-    const res = await fetch('https://bibliolights-backend-production.up.railway.app/api/books', {
+    const res = await fetch(`${BASE_URL}/books`, {
       method: 'GET',
-      headers: headers,
+      headers: headers, // Sin el encabezado de Authorization
     });
 
     if (!res.ok) {
@@ -47,12 +27,45 @@ export const fetchBooks = async () => {
   }
 };
 
-// Función para agregar un libro
+// Función para obtener los detalles de un libro (esto sigue requeriendo autenticación)
+export const fetchBookDetails = async (id) => {
+  try {
+    const res = await fetch(`${BASE_URL}/books/${id}`, {
+      method: 'GET',
+      headers: headers, // Sin el encabezado de Authorization
+    });
+
+    if (!res.ok) {
+      throw new Error("Error al obtener los detalles del libro");
+    }
+
+    const bookData = await res.json();
+    return bookData;
+  } catch (error) {
+    console.error("Error:", error.message);
+    throw error;
+  }
+};
+
+// Función para agregar un libro (requiere autenticación)
 export const addBook = async (bookData) => {
   try {
-    const res = await fetch('https://bibliolights-backend-production.up.railway.app/api/admin/books', {
+    const token = GetAuthToken();
+    if (!token) {
+      throw new Error("Se requiere autenticación");
+    }
+
+    // Solo los administradores pueden agregar libros
+    if (!GetIsAdmin()) {
+      throw new Error("Acción no permitida: Solo administradores pueden agregar libros");
+    }
+
+    const res = await fetch(`${BASE_URL}/admin/books`, {
       method: 'POST',
-      headers: headers,
+      headers: {
+        ...headers,
+        "Authorization": `Bearer ${token}`,
+      },
       body: JSON.stringify(bookData),
     });
 
@@ -68,12 +81,25 @@ export const addBook = async (bookData) => {
   }
 };
 
-// Función para actualizar un libro
+// Función para actualizar un libro (requiere autenticación)
 export const updateBook = async (bookId, bookData) => {
   try {
-    const res = await fetch(`https://bibliolights-backend-production.up.railway.app/api/admin/books/${bookId}`, {
+    const token = GetAuthToken();
+    if (!token) {
+      throw new Error("Se requiere autenticación");
+    }
+
+    // Solo los administradores pueden actualizar libros
+    if (!GetIsAdmin()) {
+      throw new Error("Acción no permitida: Solo administradores pueden actualizar libros");
+    }
+
+    const res = await fetch(`${BASE_URL}/admin/books/${bookId}`, {
       method: 'PUT',
-      headers: headers,
+      headers: {
+        ...headers,
+        "Authorization": `Bearer ${token}`,
+      },
       body: JSON.stringify(bookData),
     });
 
@@ -89,12 +115,25 @@ export const updateBook = async (bookId, bookData) => {
   }
 };
 
-// Función para eliminar un libro
+// Función para eliminar un libro (requiere autenticación)
 export const deleteBook = async (bookId) => {
   try {
-    const res = await fetch(`https://bibliolights-backend-production.up.railway.app/api/admin/books/${bookId}`, {
+    const token = GetAuthToken();
+    if (!token) {
+      throw new Error("Se requiere autenticación");
+    }
+
+    // Solo los administradores pueden eliminar libros
+    if (!GetIsAdmin()) {
+      throw new Error("Acción no permitida: Solo administradores pueden eliminar libros");
+    }
+
+    const res = await fetch(`${BASE_URL}/admin/books/${bookId}`, {
       method: 'DELETE',
-      headers: headers,
+      headers: {
+        ...headers,
+        "Authorization": `Bearer ${token}`,
+      },
     });
 
     if (!res.ok) {
@@ -108,12 +147,20 @@ export const deleteBook = async (bookId) => {
   }
 };
 
-// Función para obtener los pedidos
+// Función para obtener los pedidos (requiere autenticación)
 export const fetchOrders = async () => {
   try {
-    const res = await fetch('https://bibliolights-backend-production.up.railway.app/api/orders', {
+    const token = GetAuthToken();
+    if (!token) {
+      throw new Error("Se requiere autenticación");
+    }
+
+    const res = await fetch(`${BASE_URL}/orders`, {
       method: 'GET',
-      headers: headers,
+      headers: {
+        ...headers,
+        "Authorization": `Bearer ${token}`,
+      },
     });
 
     if (!res.ok) {
@@ -128,12 +175,20 @@ export const fetchOrders = async () => {
   }
 };
 
-// Si `requestBook` es necesario, lo agregamos de la siguiente manera:
+// Función para solicitar un libro (requiere autenticación)
 export const requestBook = async (bookId, deliveryTime, notes) => {
   try {
-    const res = await fetch(`https://bibliolights-backend-production.up.railway.app/api/books/${bookId}/request`, {
+    const token = GetAuthToken();
+    if (!token) {
+      throw new Error("Se requiere autenticación");
+    }
+
+    const res = await fetch(`${BASE_URL}/books/${bookId}/request`, {
       method: 'POST',
-      headers: headers,
+      headers: {
+        ...headers,
+        "Authorization": `Bearer ${token}`,
+      },
       body: JSON.stringify({
         selectedDeliveryTime: deliveryTime, 
         notes: notes,
@@ -150,4 +205,3 @@ export const requestBook = async (bookId, deliveryTime, notes) => {
     throw error;
   }
 };
-

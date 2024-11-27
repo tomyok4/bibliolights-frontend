@@ -22,6 +22,7 @@ const Dashboard = () => {
     const fetchBooksData = async () => {
       try {
         const booksData = await fetchBooks();  // Llamada a la API para obtener los libros
+        console.log(booksData);  // Verificar que los libros se están obteniendo correctamente
         setBooks(booksData);
         setTotalPages(Math.ceil(booksData.length / booksPerPage));
       } catch (error) {

@@ -15,13 +15,13 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simula un tiempo de carga para inicializar la app
+    // Simula un tiempo de carga para inicializar la aplicación
     const timer = setTimeout(() => setIsLoading(false), 2000);
     return () => clearTimeout(timer); // Limpia el timeout al desmontar
   }, []);
 
   if (isLoading) {
-    return <Loading />; // Muestra el Loading mientras isLoading es true
+    return <Loading />; // Muestra el Loading mientras isLoading es verdadero
   }
 
   return (
@@ -35,7 +35,7 @@ const App = () => {
             flexDirection: "column",
           }}
         >
-          <Navbar isLoggedIn={true} onLogout={() => alert("Logout realizado")} />
+          <Navbar isLoggedIn={true} onLogout={() => alert("Cierre de sesión realizado")} />
           <div style={{ flex: 1 }}>
             <Routes>
               <Route path="/" element={<Dashboard />} />
@@ -54,3 +54,4 @@ const App = () => {
 };
 
 export default App;
+

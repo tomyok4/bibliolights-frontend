@@ -54,7 +54,7 @@ const BookDetails = () => {
       </div>
       <div className="book-action-section">
         <p className="book-text">
-          <strong>Cantidad disponible:</strong> {book.currentRequests}
+          <strong>Cantidad disponible:</strong> {book.quantity}
         </p>
         <button className="add-to-cart-button" onClick={handleAddToCart}>
           Agregar al carrito
