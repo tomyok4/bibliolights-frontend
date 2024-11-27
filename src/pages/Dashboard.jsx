@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { fetchBooks } from '../utils/api'; // Asegúrate de importar la función fetchBooks
+import Carrusel from '../components/Carrusel';  // Asegúrate de importar el Carrusel
+import { fetchBooks } from '../utils/api'; 
 import './Dashboard.css';
 
 const Dashboard = () => {
@@ -9,6 +10,13 @@ const Dashboard = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [sortOption, setSortOption] = useState('priceAsc');
+
+  // Imágenes del carrusel
+  const carouselImages = [
+    require('../assets/imagen1dashboard.jpg'),
+    require('../assets/imagen2dashboard.jpg'),
+    require('../assets/imagen3dashboard.jpg')
+  ];
 
   useEffect(() => {
     const fetchBooksData = async () => {
@@ -61,6 +69,9 @@ const Dashboard = () => {
 
   return (
     <div className="container">
+      {/* Carrusel de imágenes */}
+      <Carrusel images={carouselImages} />
+
       <div className="headerContainer">
         <h2 className="header">Catálogo de Libros</h2>
 
@@ -92,7 +103,7 @@ const Dashboard = () => {
           currentBooks.map((book) => (
             <div key={book._id} className="card">
               <img
-                src={book.coverImage || 'default-image.jpg'}
+                src={book.coverImage || "default-image.jpg"}
                 alt={book.title}
                 className="image"
               />
@@ -129,7 +140,7 @@ const Dashboard = () => {
             key={index}
             onClick={() => handlePageChange(index + 1)}
             className={`paginationButton ${
-              currentPage === index + 1 ? 'activePaginationButton' : ''
+              currentPage === index + 1 ? "activePaginationButton" : ""
             }`}
           >
             {index + 1}

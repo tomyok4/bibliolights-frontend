@@ -201,3 +201,62 @@
       grid-column: span 1;
   }
 }
+
+/* Carrusel */
+.carousel-container {
+  width: 100%;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  height: 300px;  /* Establecer altura máxima */
+  position: relative; /* Para las flechas de navegación */
+}
+
+.carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo para los puntos del carrusel */
+.slick-dots {
+  bottom: 10px;
+  text-align: center;
+}
+
+.slick-dots li button {
+  background-color: #836F6F;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #4F3737;
+}
+
+/* Flechas del carrusel */
+.slick-prev, .slick-next {
+  color: #4F3737;
+  font-size: 30px;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
